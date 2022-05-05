@@ -67,11 +67,7 @@ const usuariosPatch = (req, res) => {
 const usuariosDelete = async (req, res = response) => {
   const { id } = req.params;
 
-  //borrar fisicamente el registro, no recomendado
-  // const usuario = await Usuario.findByIdAndDelete(id);
-
   //forma correcta de borrar un registro cambiando su estado
-
   const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
 
   res.json(usuario);

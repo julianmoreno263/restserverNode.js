@@ -6,7 +6,20 @@ const {
   idExiste,
 } = require("../helpers/db-validators");
 
-const { validarCampos } = require("../middlewares/validarCampos");
+// const { validarCampos } = require("../middlewares/validarCampos");
+// const { validarJWT } = require("../middlewares/validar-jwt");
+// const {
+//   esAdminRole,
+//   tieneVariosRoles,
+// } = require("../middlewares/validar-roles");
+
+const {
+  validarCampos,
+  validarJWT,
+  esAdminRole,
+  tieneVariosRoles,
+} = require("../middlewares/index");
+
 const {
   usuariosGet,
   usuariosPut,
@@ -57,9 +70,11 @@ router.patch("/", usuariosPatch);
 router.delete(
   "/:id",
   [
+    validarJWT,
+    // esAdminRole,
+    tieneVariosRoles("ADMIN_ROLE", "VENTAS_ROLE","USER_ROLE"), //aqui llamamos a la funcion tieneVariosRoles
     check("id", "No es un id de Mongo válido").isMongoId(),
     check("id").custom(idExiste),
-    
     validarCampos,
   ],
 
