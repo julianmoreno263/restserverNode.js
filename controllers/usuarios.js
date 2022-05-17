@@ -52,9 +52,7 @@ const usuariosPut = async (req, res) => {
   //actualizamos el registro
   const usuario = await Usuario.findOneAndUpdate(id, resto);
 
-  res.json({
-    usuario,
-  });
+  return res.json(usuario);
 };
 
 const usuariosPatch = (req, res) => {

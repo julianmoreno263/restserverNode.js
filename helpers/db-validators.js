@@ -1,3 +1,5 @@
+const { response } = require("express");
+const { Categoria, Producto } = require("../models");
 const Role = require("../models/role");
 const Usuario = require("../models/usuario");
 //verificar el rol
@@ -16,10 +18,25 @@ const emailExiste = async (correo = "") => {
   }
 };
 
-//verificar si el id existe
+//verificar si el id del usuario existe
 const idExiste = async (id = "") => {
-  
   const existeId = await Usuario.findById(id);
+  if (!existeId) {
+    throw new Error(`El id ${id} no existe en la BD!!`);
+  }
+};
+
+//verificar si el id de la categoria existe
+const existeCategoria = async (id = "") => {
+  const existeId = await Categoria.findById(id);
+  if (!existeId) {
+    throw new Error(`El id ${id} no existe en la BD!!`);
+  }
+};
+
+//verificar si el id del producto existe
+const existeProducto = async (id = "") => {
+  const existeId = await Producto.findById(id);
   if (!existeId) {
     throw new Error(`El id ${id} no existe en la BD!!`);
   }
@@ -29,4 +46,6 @@ module.exports = {
   esRolValido,
   emailExiste,
   idExiste,
+  existeCategoria,
+  existeProducto,
 };
